@@ -5,6 +5,8 @@
     border: 2px solid #333;
 }
 
-#todo-display {
+#todoDisplay {
     min-height: 300px;
+    max-height: 300px;
+    overflow: auto;
 }

@@ -3,6 +3,8 @@ function localSotrageData(todos) {
 
     if (todoJSON !== null) {
         return todos = JSON.parse(todoJSON)
+    } else {
+        return []
     }
 }
 
@@ -26,7 +28,7 @@ function renderTodoList(todo) {
     const li = document.createElement('li')
     const a = document.createElement('a')
     ul.appendChild(li)
-    a.textContent = todo
+    a.textContent = todo.title
     li.appendChild(a)
     return ul
 }
