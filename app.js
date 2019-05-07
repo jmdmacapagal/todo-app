@@ -1,4 +1,4 @@
-let todos = localSotrageData()
+let todos = localStorageData()
 
 main()
 

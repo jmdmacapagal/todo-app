@@ -24,7 +24,7 @@ function main() {
     })
 }
 
-function localSotrageData(todos) {
+function localStorageData(todos) {
     const todoJSON = localStorage.getItem('todos')
 
     if (todoJSON !== null) {
