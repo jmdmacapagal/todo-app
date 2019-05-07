@@ -1,3 +1,7 @@
+const filters = {
+    searchText: ''
+}
+
 function localSotrageData(todos) {
     const todoJSON = localStorage.getItem('todos')
 
@@ -13,12 +17,17 @@ function saveTodo() {
 }
 
 function renderTodo(todos) {
+    const filteredTodo = todos.filter(function(todo) {
+        return todo.title.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
+
+    //populate todoDisplay
     const todoDisplay = document.querySelector('#todoDisplay')
     todoDisplay.innerHTML = ''
 
-    todoDisplay.appendChild(generateHeader(todos))
+    todoDisplay.appendChild(generateHeader(filteredTodo))
 
-    todos.forEach(function (todo) {
+    filteredTodo.forEach(function (todo) {
         todoDisplay.appendChild(renderTodoList(todo))
         console.log(todo)
     })
@@ -42,3 +51,4 @@ function generateHeader(todos) {
     h3.textContent = `You have ${unfinishedTodo.length} unfinished todo/s`
     return h3
 }
+

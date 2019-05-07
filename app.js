@@ -10,5 +10,10 @@ document.querySelector('#addForm').addEventListener('submit', function(e) {
         created: ''
     })
     saveTodo()
-    renderTodo(todos)
+    renderTodo(todos, filters)
+})
+
+document.querySelector('#searchTodo').addEventListener('input', function(e) {
+    filters.searchText = e.target.value
+    renderTodo(todos, filters)
 })
