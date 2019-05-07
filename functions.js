@@ -2,6 +2,28 @@ const filters = {
     searchText: ''
 }
 
+
+function main() {
+    renderTodo(todos)
+
+    document.querySelector('#addForm').addEventListener('submit', (e) => {
+        e.preventDefault()
+        todos.push({
+            id: generateRandomId(),
+            title: e.target.addTodo.value,
+            completed: false,
+            created: ''
+        })
+        saveTodo()
+        renderTodo(todos, filters)
+    })
+
+    document.querySelector('#searchTodo').addEventListener('input', (e) => {
+        filters.searchText = e.target.value
+        renderTodo(todos, filters)
+    })
+}
+
 function localSotrageData(todos) {
     const todoJSON = localStorage.getItem('todos')
 
@@ -16,8 +38,19 @@ function saveTodo() {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
+function removeTodo(id) {
+    const index = todos.findIndex(todo => {
+        return todo.id === id
+    })
+
+    if (index > -1) {
+        console.log(index)
+        todos.splice(index, 1)
+    }
+}
+
 function renderTodo(todos) {
-    const filteredTodo = todos.filter(function(todo) {
+    const filteredTodo = todos.filter(todo => {
         return todo.title.toLowerCase().includes(filters.searchText.toLowerCase())
     })
 
@@ -27,7 +60,7 @@ function renderTodo(todos) {
 
     todoDisplay.appendChild(generateHeader(filteredTodo))
 
-    filteredTodo.forEach(function (todo) {
+    filteredTodo.forEach(todo => {
         todoDisplay.appendChild(renderTodoList(todo))
     })
 }
@@ -55,7 +88,7 @@ function renderTodoList(todo) {
 }
 
 function generateHeader(todos) {
-    const unfinishedTodo = todos.filter(function (todo) {
+    const unfinishedTodo = todos.filter(todo => {
         return !todo.completed
     })
     const h3 = document.createElement('h3')
@@ -63,19 +96,7 @@ function generateHeader(todos) {
     return h3
 }
 
-function removeTodo(id) {
-    const index = todos.findIndex(function(todo) {
-        return todo.id === id
-    })
-
-    if (index > -1) {
-        console.log(index)
-        todos.splice(index, 1)
-    }
-}
-
 function generateRandomId() {
     let random = Math.floor(Math.random() * 9999999999999)
-
     return random
 }
