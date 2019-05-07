@@ -5,6 +5,7 @@ renderTodo(todos)
 document.querySelector('#addForm').addEventListener('submit', function(e) {
     e.preventDefault()
     todos.push({
+        id: generateRandomId(),
         title: e.target.addTodo.value,
         completed: false,
         created: ''

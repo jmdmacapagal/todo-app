@@ -29,7 +29,6 @@ function renderTodo(todos) {
 
     filteredTodo.forEach(function (todo) {
         todoDisplay.appendChild(renderTodoList(todo))
-        console.log(todo)
     })
 }
 
@@ -37,9 +36,21 @@ function renderTodoList(todo) {
     const ul = document.createElement('ul')
     const li = document.createElement('li')
     const a = document.createElement('a')
+    const span = document.createElement('span')
+    const img = document.createElement('img')
     ul.appendChild(li)
     a.textContent = todo.title
     li.appendChild(a)
+
+    img.setAttribute('src', './img/delete.png')
+    img.setAttribute('class', 'deleteImg')
+    img.addEventListener('click', function() {
+        removeTodo(todo.id)
+        saveTodo(todos)
+        renderTodo(todos, filters)
+    })
+    span.appendChild(img)
+    li.appendChild(span)
     return ul
 }
 
@@ -52,3 +63,19 @@ function generateHeader(todos) {
     return h3
 }
 
+function removeTodo(id) {
+    const index = todos.findIndex(function(todo) {
+        return todo.id === id
+    })
+
+    if (index > -1) {
+        console.log(index)
+        todos.splice(index, 1)
+    }
+}
+
+function generateRandomId() {
+    let random = Math.floor(Math.random() * 9999999999999)
+
+    return random
+}

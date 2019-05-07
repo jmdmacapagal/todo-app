@@ -10,3 +10,8 @@
     max-height: 300px;
     overflow: auto;
 }
+
+.deleteImg {
+    width: 20px;
+    height: 100%;
+}
