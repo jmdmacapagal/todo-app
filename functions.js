@@ -2,11 +2,10 @@ const filters = {
     searchText: ''
 }
 
-
 function main() {
     renderTodo(todos)
 
-    document.querySelector('#addForm').addEventListener('submit', (e) => {
+    document.querySelector('#addForm').addEventListener('submit', e => {
         e.preventDefault()
         todos.push({
             id: generateRandomId(),
@@ -15,12 +14,13 @@ function main() {
             created: ''
         })
         saveTodo()
-        renderTodo(todos, filters)
+        e.target.addTodo.value = ''
+        renderTodo(todos)
     })
 
-    document.querySelector('#searchTodo').addEventListener('input', (e) => {
+    document.querySelector('#searchTodo').addEventListener('input', e => {
         filters.searchText = e.target.value
-        renderTodo(todos, filters)
+        renderTodo(todos)
     })
 }
 
@@ -56,22 +56,22 @@ function renderTodo(todos) {
 
     //populate todoDisplay
     const todoDisplay = document.querySelector('#todoDisplay')
+    const ul = document.querySelector('#list')
     todoDisplay.innerHTML = ''
-
+    ul.innerHTML = ''
     todoDisplay.appendChild(generateHeader(filteredTodo))
-
+    todoDisplay.appendChild(ul)
     filteredTodo.forEach(todo => {
-        todoDisplay.appendChild(renderTodoList(todo))
+        ul.appendChild(renderTodoList(todo))
     })
 }
 
 function renderTodoList(todo) {
-    const ul = document.createElement('ul')
     const li = document.createElement('li')
     const a = document.createElement('a')
     const span = document.createElement('span')
     const img = document.createElement('img')
-    ul.appendChild(li)
+
     a.textContent = todo.title
     li.appendChild(a)
 
@@ -80,11 +80,11 @@ function renderTodoList(todo) {
     img.addEventListener('click', function() {
         removeTodo(todo.id)
         saveTodo(todos)
-        renderTodo(todos, filters)
+        renderTodo(todos)
     })
     span.appendChild(img)
     li.appendChild(span)
-    return ul
+    return li
 }
 
 function generateHeader(todos) {
