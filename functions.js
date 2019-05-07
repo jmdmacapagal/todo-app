@@ -16,11 +16,12 @@ function renderTodo(todos) {
     const todoDisplay = document.querySelector('#todoDisplay')
     todoDisplay.innerHTML = ''
 
+    todoDisplay.appendChild(generateHeader(todos))
+
     todos.forEach(function (todo) {
         todoDisplay.appendChild(renderTodoList(todo))
         console.log(todo)
     })
-
 }
 
 function renderTodoList(todo) {
@@ -31,4 +32,13 @@ function renderTodoList(todo) {
     a.textContent = todo.title
     li.appendChild(a)
     return ul
+}
+
+function generateHeader(todos) {
+    const unfinishedTodo = todos.filter(function (todo) {
+        return !todo.completed
+    })
+    const h3 = document.createElement('h3')
+    h3.textContent = `You have ${unfinishedTodo.length} unfinished todo/s`
+    return h3
 }
