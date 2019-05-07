@@ -1,0 +1,11 @@
+.container {
+    margin: auto;
+    margin-top: 80px;
+    width: 400px;
+    border: 2px solid #333;
+    text-align: center;
+}
+
+#todo-display {
+    min-height: 300px;
+}
